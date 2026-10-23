@@ -143,13 +143,7 @@ in
     && stdenv.hostPlatform.is64bit
     && !stdenv.hostPlatform.isRiscV
   ),
-  enablePGO ? (
-    stdenv.hostPlatform.isLinux
-    && stdenv.hostPlatform == stdenv.buildPlatform
-    # PGO merges profile data with a 32-bit llvm-profdata, which runs out of
-    # address space on the huge libxul profile, so disable it on 32-bit.
-    && stdenv.hostPlatform.is64bit
-  ),
+  enablePGO ? false,
   xvfb-run,
 
   ## Debugging
