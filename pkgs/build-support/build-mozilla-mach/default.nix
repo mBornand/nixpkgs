@@ -87,7 +87,6 @@ in
   nspr,
   nss_esr,
   nss_latest,
-  onnxruntime,
   pango,
   libxt,
   libxtst,
@@ -507,9 +506,6 @@ buildStdenv.mkDerivation {
     (enableFeature withJACK "jack")
     (enableFeature withPulseaudio "pulseaudio")
     (enableFeature withSndio "sndio")
-  ]
-  ++ lib.optionals (!buildStdenv.hostPlatform.isDarwin && lib.versionAtLeast version "141") [
-    "--with-onnx-runtime=${lib.getLib onnxruntime}/lib"
   ]
   ++ lib.optionals (lib.versionOlder version "157") [
     (enableFeature withFFmpeg "ffmpeg")
