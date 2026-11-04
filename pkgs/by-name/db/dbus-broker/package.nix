@@ -9,7 +9,7 @@
   pkg-config,
   dbus,
   linuxHeaders,
-  systemd,
+  systemdLibs,
   expat,
 }:
 
@@ -156,7 +156,7 @@ stdenv.mkDerivation (finalAttrs: {
     c-utf8
     dbus
     linuxHeaders
-    systemd
+    systemdLibs
     expat
   ];
 
@@ -177,7 +177,7 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm444 $src/README.md $out/share/doc/dbus-broker/README
 
     sed -i $out/lib/systemd/{system,user}/dbus-broker.service \
-      -e 's,^ExecReload.*busctl,ExecReload=${systemd}/bin/busctl,'
+      -e 's,^ExecReload.*busctl,ExecReload=/run/current-system/sw/bin/busctl,'
   '';
 
   doCheck = true;
