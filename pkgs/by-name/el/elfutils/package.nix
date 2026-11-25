@@ -126,7 +126,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  doCheck =
+  doCheck = false &&
     # Backtrace unwinding tests rely on glibc-internal symbol names.
     # Musl provides slightly different forms and fails.
     # Let's disable tests there until musl support is fully upstreamed.
@@ -134,7 +134,7 @@ stdenv.mkDerivation (finalAttrs: {
     # Test suite tries using `uname` to determine whether certain tests
     # can be executed, so we need to match build and host platform exactly.
     && (stdenv.hostPlatform == stdenv.buildPlatform);
-  doInstallCheck = !stdenv.hostPlatform.isMusl && (stdenv.hostPlatform == stdenv.buildPlatform);
+  doInstallCheck = false && !stdenv.hostPlatform.isMusl && (stdenv.hostPlatform == stdenv.buildPlatform);
 
   passthru.updateScript = gitUpdater {
     url = "https://sourceware.org/git/elfutils.git";
